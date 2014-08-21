@@ -21,7 +21,13 @@ var toDo = {
       };
 
       toDo.createPost(newPost);
-
+      $(".taskEnter").val("");
+    });
+    $(".container").on("click", ".destroy", function (event) {
+      event.preventDefault();
+      var postId = $(this).closest("article").data("postid");
+      console.log(postId);
+      toDo.deletePost(postId);
     });
 
 
@@ -60,7 +66,11 @@ var toDo = {
   },
   deletePost: function (postId) {
     $.ajax({
-
+      url: toDo.url + "/" + postId,
+      type: 'DELETE',
+      success: function () {
+          toDo.getPosts();
+      }
     });
 
   },
